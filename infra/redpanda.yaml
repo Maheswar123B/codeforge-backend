@@ -1,0 +1,2 @@
+# Explicit topic management: topics must be created by infra/create-topics.sh.
+auto_create_topics_enabled: false
