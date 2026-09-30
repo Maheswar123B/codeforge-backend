@@ -1,13 +1,31 @@
 package com.codeforge.events;
 
-/**
- * Lifecycle states of a single code execution, published on the
- * execution-status topic and streamed to the client via result-gateway.
- */
 public enum ExecutionStatus {
+
     QUEUED,
     RUNNING,
+
     COMPLETED,
-    FAILED,
-    TIMED_OUT
+    RUNTIME_ERROR,
+    COMPILE_ERROR,
+    TIMEOUT,
+    MEMORY_EXCEEDED,
+    OUTPUT_LIMIT_EXCEEDED,
+    INTERNAL_ERROR,
+    LOST;
+
+    public boolean isTerminal() {
+        return switch (this) {
+            case COMPLETED,
+                 RUNTIME_ERROR,
+                 COMPILE_ERROR,
+                 TIMEOUT,
+                 MEMORY_EXCEEDED,
+                 OUTPUT_LIMIT_EXCEEDED,
+                 INTERNAL_ERROR,
+                 LOST -> true;
+
+            case QUEUED, RUNNING -> false;
+        };
+    }
 }
